@@ -7,4 +7,4 @@ const config = {
   DATABASE_URL: process.env.DB_URL || "",
 };
 
-module.export = config;
+module.exports = config;

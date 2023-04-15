@@ -2,10 +2,11 @@ const app = require("./app");
 const dotenv = require("dotenv");
 const colors = require("colors");
 const createDBConnection = require("./db/db-connection");
+const config = require("./config");
 
 dotenv.config();
 
-const PORT = process.env.PORT || 5005;
+const PORT = config.PORT;
 
 createDBConnection();
 

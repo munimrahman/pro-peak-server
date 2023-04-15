@@ -1,11 +1,12 @@
 const mongoose = require("mongoose");
 const dotenv = require("dotenv");
 const colors = require("colors");
+const config = require("../config");
 
 dotenv.config();
 
 const createDBConnection = () => {
-  const connectionString = process.env.DB_URL;
+  const connectionString = config.DATABASE_URL;
   mongoose.set("strictQuery", true);
   mongoose
     .connect(connectionString, {})
