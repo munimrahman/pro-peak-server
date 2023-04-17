@@ -5,9 +5,14 @@ const createOne = async (data) => {
     return user;
 };
 
-const updateOne = async (data, id) => {};
+const getOneById = async (id) => {};
 
-const getOne = async (id) => {};
+const getOneByEmail = async (email) => {
+    const user = await User.findOne({ email });
+    return user;
+};
+
+const updateOne = async (data, id) => {};
 
 const getAll = async () => {};
 
@@ -18,7 +23,8 @@ const deleteMany = async (ids) => {};
 module.exports = {
     createOne,
     updateOne,
-    getOne,
+    getOneById,
+    getOneByEmail,
     getAll,
     deleteOne,
     deleteMany,

@@ -9,6 +9,7 @@
   },
   "rules": {
     "no-unused-vars": "off",
+    "comma-dangle": "off",
     "no-console": 0,
     "indent": 0,
     "linebreak-style": 0,
