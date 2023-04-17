@@ -1,8 +1,25 @@
-const userRepository = require("../repository");
+const userRepository = require('../repository');
 
-const createUserService = async (body) => {
-  const data = await userRepository.create(body);
-  return data;
+const createUserService = async (data) => {
+    const user = await userRepository.createOne(data);
+    return user;
 };
 
-module.exports = { createUserService };
+const updateUserService = async () => {};
+
+const getOneUserService = async () => {};
+
+const getAllUserService = async () => {};
+
+const deleteOneUserService = async () => {};
+
+const deleteManyUserService = async () => {};
+
+module.exports = {
+    createUserService,
+    updateUserService,
+    getOneUserService,
+    getAllUserService,
+    deleteOneUserService,
+    deleteManyUserService,
+};
