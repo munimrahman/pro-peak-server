@@ -58,7 +58,6 @@ const getAllUser = catchError(async (req, res, next) => {
 
 const deleteOneUser = catchError(async (req, res, next) => {
     const response = await userServices.deleteOneUserService(req.params.id);
-    console.log(response);
     res.status(HTTP_OK.code).json({
         success: true,
         message: 'User Deleted Successfully',

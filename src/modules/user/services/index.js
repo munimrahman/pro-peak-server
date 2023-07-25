@@ -31,8 +31,8 @@ const loginUserService = async (data) => {
 };
 
 const updateUserService = async (data, id) => {
-    const updatedUSer = await userRepository.updateOne(data, id);
-    return updatedUSer;
+    const updatedUser = await userRepository.updateOne(data, id);
+    return updatedUser;
 };
 
 const getOneUserService = async (id) => {

@@ -1,31 +1,31 @@
 const User = require('../../../models/User');
 
 const createOne = async (data) => {
-    const user = await User.create(data);
-    return user;
+    const res = await User.create(data);
+    return res;
 };
 
 const getOneById = async (id) => {
-    const user = User.findById(id);
-    return user;
+    const res = User.findById(id);
+    return res;
 };
 
 const getOneByEmail = async (email) => {
-    const user = await User.findOne({ email });
-    return user;
+    const res = await User.findOne({ email });
+    return res;
 };
 
 const updateOne = async (data, id) => {
-    const updatedUser = await User.findByIdAndUpdate(id, data, {
+    const updatedRes = await User.findByIdAndUpdate(id, data, {
         runValidators: true,
         new: true,
     });
-    return updatedUser;
+    return updatedRes;
 };
 
 const getAll = async () => {
-    const users = await User.find({});
-    return { count: users.length, users };
+    const res = await User.find({});
+    return { count: res.length, users: res };
 };
 
 const deleteOne = async (id) => {

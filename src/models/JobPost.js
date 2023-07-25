@@ -16,7 +16,10 @@ const jobPostSchema = new Schema(
             required: true,
             minLength: [10, 'Description must be at least 10 characters'],
         },
-        industry: [String],
+        industry: {
+            type: String,
+            required: true,
+        },
         salary: {
             type: Number,
             required: true,
