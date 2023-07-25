@@ -26,19 +26,34 @@ const loginUserService = async (data) => {
     if (!isPasswordMatch) return undefined;
 
     const token = generateToken(user);
-
+    // TODO: setup accessToken & refresh token in cookies
     return { user, token };
 };
 
-const updateUserService = async () => {};
+const updateUserService = async (data, id) => {
+    const updatedUSer = await userRepository.updateOne(data, id);
+    return updatedUSer;
+};
 
-const getOneUserService = async () => {};
+const getOneUserService = async (id) => {
+    const user = await userRepository.getOneById(id);
+    return user;
+};
 
-const getAllUserService = async () => {};
+const getAllUserService = async () => {
+    const data = await userRepository.getAll();
+    return data;
+};
 
-const deleteOneUserService = async () => {};
+const deleteOneUserService = async (id) => {
+    const res = await userRepository.deleteOne(id);
+    return res;
+};
 
-const deleteManyUserService = async () => {};
+const deleteManyUserService = async (ids) => {
+    const res = await userRepository.deleteMany(ids);
+    return res;
+};
 
 module.exports = {
     registerUserService,

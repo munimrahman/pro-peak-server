@@ -5,7 +5,7 @@ const HTTP_CODE = {
     },
     HTTP_NOT_FOUND: {
         code: 404,
-        message: 'Not Found',
+        message: 'Route Not Found',
     },
     HTTP_CREATED: {
         code: 201,
@@ -14,6 +14,10 @@ const HTTP_CODE = {
     HTTP_OK: {
         code: 200,
         message: 'Successfully Fetched',
+    },
+    HTTP_DELETE: {
+        code: 204,
+        message: 'Successfully Deleted',
     },
     HTTP_BAD_REQUEST: {
         code: 400,

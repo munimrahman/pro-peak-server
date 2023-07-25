@@ -20,7 +20,8 @@
     "http-errors": "^2.0.0",
     "jsonwebtoken": "^9.0.0",
     "mongodb": "^5.1.0",
-    "mongoose": "^6.10.0"
+    "mongoose": "^6.10.0",
+    "morgan": "^1.10.0"
   },
   "devDependencies": {
     "eslint": "^8.38.0",

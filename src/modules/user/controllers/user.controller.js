@@ -1,12 +1,10 @@
 /* eslint-disable consistent-return */
 const catchError = require('../../../utils/error/catchError');
 const userServices = require('../services');
-const { HTTP_CREATED } = require('../../../utils/constants/constants');
-const generateToken = require('../../../utils/helpers/generateToken');
+const { HTTP_CREATED, HTTP_OK } = require('../../../utils/constants/constants');
 
 const createUser = catchError(async (req, res, next) => {
     const data = await userServices.registerUserService(req.body);
-
     res.status(HTTP_CREATED.code).json({
         success: true,
         message: HTTP_CREATED.message,
@@ -31,15 +29,51 @@ const logIn = catchError(async (req, res, next) => {
     });
 });
 
-const updateUser = catchError(async (req, res, next) => {});
+const updateUser = catchError(async (req, res, next) => {
+    const updatedUser = await userServices.updateUserService(req.body, req.params.id);
+    res.status(HTTP_OK.code).json({
+        success: true,
+        message: 'Updated Successfully.',
+        data: updatedUser,
+    });
+});
 
-const getOneUser = catchError(async (req, res, next) => {});
+const getOneUser = catchError(async (req, res, next) => {
+    const user = await userServices.getOneUserService(req.params.id);
+    res.status(HTTP_OK.code).json({
+        success: true,
+        message: HTTP_OK.message,
+        user,
+    });
+});
 
-const getAllUser = catchError(async (req, res, next) => {});
+const getAllUser = catchError(async (req, res, next) => {
+    const data = await userServices.getAllUserService();
+    res.status(HTTP_OK.code).json({
+        success: true,
+        message: HTTP_OK.message,
+        data,
+    });
+});
 
-const deleteOneUser = catchError(async (req, res, next) => {});
+const deleteOneUser = catchError(async (req, res, next) => {
+    const response = await userServices.deleteOneUserService(req.params.id);
+    console.log(response);
+    res.status(HTTP_OK.code).json({
+        success: true,
+        message: 'User Deleted Successfully',
+        deletedUSer: response,
+    });
+});
 
-const deleteManyUser = catchError(async (req, res, next) => {});
+const deleteManyUser = catchError(async (req, res, next) => {
+    const response = await userServices.deleteManyUserService(req.body.ids);
+    res.status(HTTP_OK.code).json({
+        success: true,
+        message: 'Users Deleted Successfully',
+        data: response,
+    });
+});
 
 module.exports = {
     createUser,
