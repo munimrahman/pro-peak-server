@@ -6,7 +6,7 @@ const {
     getAllJobApplication,
     deleteOneJobApplication,
     deleteManyJobApplication,
-} = require('../modules/jobApplication/controllers/job.controller');
+} = require('../modules/jobApplication/controllers/jobApply.controller');
 
 const router = express.Router();
 

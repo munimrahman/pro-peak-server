@@ -62,6 +62,10 @@ const companySchema = new Schema(
             type: String,
             required: true,
         },
+        hiringManager: {
+            type: Schema.Types.ObjectId,
+            ref: 'User',
+        },
     },
     { timestamps: true }
 );
