@@ -43,7 +43,7 @@ const deleteOneCompany = catchError(async (req, res, next) => {
     const response = await companyServices.deleteOneCompanyService(req.params.id);
     res.status(HTTP_OK.code).json({
         success: true,
-        message: 'Job Post Deleted Successfully',
+        message: 'Company Deleted Successfully',
         deletedCompany: response,
     });
 });
@@ -52,7 +52,7 @@ const deleteManyCompany = catchError(async (req, res, next) => {
     const response = await companyServices.deleteManyCompanyService(req.body.ids);
     res.status(HTTP_OK.code).json({
         success: true,
-        message: 'Job Posts Deleted Successfully',
+        message: 'Companies Deleted Successfully',
         data: response,
     });
 });

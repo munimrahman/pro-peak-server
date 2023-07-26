@@ -23,14 +23,14 @@ const jobApplicationSchema = new Schema(
             required: true,
         },
         experience: {
-            type: Number,
+            type: String,
             required: true,
         },
         resume: {
             type: String,
             required: true,
         },
-        jobPost: {
+        jobPostId: {
             type: Schema.Types.ObjectId,
             ref: 'JobPost',
         },
