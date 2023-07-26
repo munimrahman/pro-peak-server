@@ -30,8 +30,9 @@ const getOneJobPost = catchError(async (req, res, next) => {
     });
 });
 
+// get all jobs
 const getAllJobPost = catchError(async (req, res, next) => {
-    const data = await jobPostServices.getAllJobPostService();
+    const data = await jobPostServices.getAllJobPostService(req.query);
     res.status(HTTP_OK.code).json({
         success: true,
         message: HTTP_OK.message,

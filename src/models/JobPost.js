@@ -49,6 +49,9 @@ const jobPostSchema = new Schema(
         language: {
             type: [String],
         },
+        location: {
+            type: String,
+        },
         featuredPhoto: {
             type: String,
             required: true,

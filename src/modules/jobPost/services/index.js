@@ -15,8 +15,17 @@ const getOneJobPostService = async (id) => {
     return job;
 };
 
-const getAllJobPostService = async () => {
-    const data = await jobPostRepository.getAll();
+// get all service
+const getAllJobPostService = async (query) => {
+    const filters = { ...query };
+    const queries = {};
+    // exclude fields -> page, limit, sort
+    const excludeFields = ['page', 'limit', 'sort', 'searchQuery'];
+    excludeFields.forEach((field) => delete filters[field]);
+
+    console.log(filters);
+
+    const data = await jobPostRepository.getAll(filters, queries);
     return data;
 };
 
