@@ -6,7 +6,7 @@ const {
     getAllJobPost,
     deleteOneJobPost,
     deleteManyJobPost,
-} = require('../modules/job/controllers/job.controller');
+} = require('../modules/jobPost/controllers/job.controller');
 
 const router = express.Router();
 
