@@ -32,9 +32,9 @@ const getOneJobApplication = catchError(async (req, res, next) => {
         jobApplication,
     });
 });
-
+// get all job applications
 const getAllJobApplication = catchError(async (req, res, next) => {
-    const data = await jobApplicationServices.getAllJobApplicationService();
+    const data = await jobApplicationServices.getAllJobApplicationService(req.query);
     res.status(HTTP_OK.code).json({
         success: true,
         message: HTTP_OK.message,

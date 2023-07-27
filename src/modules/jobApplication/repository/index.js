@@ -1,3 +1,4 @@
+/* eslint-disable object-curly-newline */
 const JobApplication = require('../../../models/JobApplication');
 
 const createOne = async (data) => {
@@ -22,10 +23,17 @@ const updateOne = async (data, id) => {
     });
     return updatedRes;
 };
+// get all job applications
+const getAll = async (queries) => {
+    const { candidateId, jobPostId, skip, limit } = queries;
+    const filters = {};
+    if (candidateId) filters['candidate.id'] = candidateId;
+    if (jobPostId) filters.jobPostId = jobPostId;
 
-const getAll = async () => {
-    const res = await JobApplication.find({});
-    return { count: res.length, applications: res };
+    const res = await JobApplication.find(filters).skip(skip).limit(limit);
+    const totalCount = await JobApplication.countDocuments(filters);
+
+    return { total: totalCount, count: res.length, applications: res };
 };
 
 const deleteOne = async (id) => {

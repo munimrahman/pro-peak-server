@@ -68,7 +68,7 @@ const getAll = async (queries) => {
         .limit(limit)
         .sort(`${sortBy} title`)
         .select('title salary location tags');
-    const countDocument = await JobPost.countDocuments({});
+    const countDocument = await JobPost.count(filters);
     return { totalCount: countDocument, count: res.length, jobs: res };
 };
 

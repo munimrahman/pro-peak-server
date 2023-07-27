@@ -1,3 +1,5 @@
+/* eslint-disable radix */
+/* eslint-disable object-curly-newline */
 const jobApplicationRepository = require('../repository');
 
 const createJobApplicationService = async (data) => {
@@ -14,9 +16,17 @@ const getOneJobApplicationService = async (id) => {
     const application = await jobApplicationRepository.getOneById(id);
     return application;
 };
-
-const getAllJobApplicationService = async () => {
-    const data = await jobApplicationRepository.getAll();
+// get all job applications
+const getAllJobApplicationService = async (query) => {
+    const { jobPostId, candidateId, page = 1, limit = 5 } = query;
+    const queries = { jobPostId, candidateId };
+    // set pagination
+    if (page) {
+        const skip = (page - 1) * parseInt(limit);
+        queries.skip = skip;
+        queries.limit = parseInt(limit);
+    }
+    const data = await jobApplicationRepository.getAll(queries);
     return data;
 };
 
