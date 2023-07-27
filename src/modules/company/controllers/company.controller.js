@@ -29,9 +29,9 @@ const getOneCompany = catchError(async (req, res, next) => {
         company,
     });
 });
-
+// get all company
 const getAllCompany = catchError(async (req, res, next) => {
-    const data = await companyServices.getAllCompanyService();
+    const data = await companyServices.getAllCompanyService(req.query);
     res.status(HTTP_OK.code).json({
         success: true,
         message: HTTP_OK.message,

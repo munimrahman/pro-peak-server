@@ -1,3 +1,5 @@
+/* eslint-disable object-curly-newline */
+/* eslint-disable radix */
 const companyRepository = require('../repository');
 
 const createCompanyService = async (data) => {
@@ -14,9 +16,17 @@ const getOneCompanyService = async (id) => {
     const company = await companyRepository.getOneById(id);
     return company;
 };
-
-const getAllCompanyService = async () => {
-    const data = await companyRepository.getAll();
+// get all companies
+const getAllCompanyService = async (query) => {
+    const { industry, companySize, workPlace, page = 1, limit = 5 } = query;
+    const queries = { industry, companySize, workPlace };
+    // set pagination
+    if (page) {
+        const skip = (page - 1) * parseInt(limit);
+        queries.skip = skip;
+        queries.limit = parseInt(limit);
+    }
+    const data = await companyRepository.getAll(queries);
     return data;
 };
 

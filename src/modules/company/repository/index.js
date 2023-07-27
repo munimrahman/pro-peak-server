@@ -1,3 +1,4 @@
+/* eslint-disable object-curly-newline */
 const Company = require('../../../models/Company');
 
 const createOne = async (data) => {
@@ -22,10 +23,18 @@ const updateOne = async (data, id) => {
     });
     return updatedRes;
 };
+// get all companies query
+const getAll = async (queries) => {
+    const { industry, companySize, workPlace, skip, limit } = queries;
+    const filters = {};
 
-const getAll = async () => {
-    const res = await Company.find({});
-    return { count: res.length, companies: res };
+    if (industry) filters.industry = industry;
+    if (companySize) filters.companySize = companySize;
+    if (workPlace) filters.workPlace = workPlace;
+
+    const res = await Company.find(filters).skip(skip).limit(limit);
+    const totalCount = await Company.countDocuments(filters);
+    return { total: totalCount, count: res.length, companies: res };
 };
 
 const deleteOne = async (id) => {
