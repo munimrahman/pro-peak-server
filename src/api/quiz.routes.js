@@ -1,24 +1,16 @@
 const express = require('express');
 const {
-    createCompany,
-    updateCompany,
-    getOneCompany,
-    getAllCompany,
-    deleteOneCompany,
-    deleteManyCompany,
-} = require('../modules/company/controllers/company.controller');
+    createQuiz,
+    updateQuiz,
+    getOneQuiz,
+    getAllQuiz,
+    deleteOneQuiz,
+    deleteManyQuiz,
+} = require('../modules/quiz/controllers/quiz.controller');
 
 const router = express.Router();
 
-/*
-
-*/
-
-router.get('/', (req, res) => {
-    res.json('Quiz Route');
-});
-
-// router.route('/').post(createCompany).get(getAllCompany).delete(deleteManyCompany);
-// router.route('/:id').get(getOneCompany).put(updateCompany).delete(deleteOneCompany);
+router.route('/').post(createQuiz).get(getAllQuiz).delete(deleteManyQuiz);
+router.route('/:id').get(getOneQuiz).put(updateQuiz).delete(deleteOneQuiz);
 
 module.exports = router;
