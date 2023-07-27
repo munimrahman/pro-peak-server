@@ -114,6 +114,12 @@ const getAllJobPostService = async (query) => {
         queries.sortBy = sortBy;
     }
 
+    // set search query
+    if (searchQuery) {
+        const regex = new RegExp(searchQuery, 'i');
+        queries.searchQuery = regex;
+    }
+
     const data = await jobPostRepository.getAll(queries);
     return data;
 };

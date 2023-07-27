@@ -26,39 +26,48 @@ const updateOne = async (data, id) => {
 
 // get all query
 const getAll = async (queries) => {
-    console.log(queries);
     const {
         skip,
         limit,
-        industry = [],
-        salary: { low = 0, high = Infinity } = {},
-        jobLevel = [],
-        workPlace = [],
-        jobType = [],
-        tags = [],
+        industry,
+        salary,
+        jobLevel,
+        workPlace,
+        jobType,
+        tags,
         location,
         postDate,
         sortBy,
+        searchQuery,
     } = queries;
-
-    const titleQuery = 'react';
-    const regex = new RegExp(titleQuery, 'i');
-    console.log(low, high);
-    const res = await JobPost.find({
+    // set final query
+    const filters = {
         // $or: [...industry],
         // salary: { $gte: low, $lte: high },
-        // jobLevel: { $in: [...jobLevel] }, // TODO: not work if pass empty array
+        // jobLevel: { $in: [...jobLevel] },
         // workPlace: { $in: workPlace },
         // jobType: { $in: jobType },
         // tags: { $in: tags },
-        // location, // TODO: if empty string then not working
+        // location,
         // createdAt: { $gte: postDate },
-        // title: regex,
-    })
+        // title: searchQuery,
+    };
+
+    if (industry) filters.$or = industry;
+    if (salary) filters.salary = { $gte: salary.low, $lte: salary.high };
+    if (jobLevel) filters.jobLevel = { $in: jobLevel };
+    if (workPlace) filters.workPlace = { $in: workPlace };
+    if (jobType) filters.jobType = { $in: jobType };
+    if (tags) filters.tags = { $in: tags };
+    if (location) filters.location = location;
+    if (postDate) filters.createdAt = { $gte: postDate };
+    if (searchQuery) filters.title = searchQuery;
+
+    const res = await JobPost.find(filters)
         .skip(skip)
         .limit(limit)
         .sort(`${sortBy} title`)
-        .select('title salary location');
+        .select('title salary location tags');
     const countDocument = await JobPost.countDocuments({});
     return { totalCount: countDocument, count: res.length, jobs: res };
 };
