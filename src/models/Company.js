@@ -34,6 +34,10 @@ const companySchema = new Schema(
             type: String,
             required: true,
         },
+        workPlace: {
+            type: String,
+            required: true,
+        },
         website: {
             type: String,
             required: true,

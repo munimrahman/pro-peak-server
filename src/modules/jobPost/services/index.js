@@ -31,6 +31,7 @@ const getAllJobPostService = async (query) => {
         searchQuery,
         sortBy,
         postDate,
+        hiringManagerId,
     } = query;
 
     const queries = {};
@@ -118,6 +119,11 @@ const getAllJobPostService = async (query) => {
     if (searchQuery) {
         const regex = new RegExp(searchQuery, 'i');
         queries.searchQuery = regex;
+    }
+
+    // set hiring manager query
+    if (hiringManagerId) {
+        queries.hiringManagerId = hiringManagerId;
     }
 
     const data = await jobPostRepository.getAll(queries);

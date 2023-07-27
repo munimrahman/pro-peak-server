@@ -40,7 +40,12 @@ const userSchema = new Schema(
             type: String,
         },
         language: [{ type: String }],
-
+        socialMedia: {
+            facebook: String,
+            linkedin: String,
+            twitter: String,
+            github: String,
+        },
         role: {
             type: String,
             enum: ['candidate', 'recruiter', 'admin'],

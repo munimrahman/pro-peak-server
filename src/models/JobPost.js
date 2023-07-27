@@ -60,20 +60,16 @@ const jobPostSchema = new Schema(
             type: String,
             required: true,
         },
-        // TODO: extra
-        // hiringManager: {
-        //     name: String,
-        //     id: {
-        //         type: Schema.Types.ObjectId,
-        //         ref: 'User',
-        //     },
-        // },
-        // applicants: [
-        //     {
-        //         type: Schema.Types.ObjectId,
-        //         ref: 'User',
-        //     },
-        // ],
+        hiringManagerId: {
+            type: Schema.Types.ObjectId,
+            ref: 'User',
+            required: true,
+        },
+        // optional
+        company: {
+            type: Schema.Types.ObjectId,
+            ref: 'Company',
+        },
     },
     { timestamps: true }
 );

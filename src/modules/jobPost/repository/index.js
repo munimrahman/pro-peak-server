@@ -3,11 +3,14 @@ const JobPost = require('../../../models/JobPost');
 
 const createOne = async (data) => {
     const res = await JobPost.create(data);
+    console.log(res);
     return res;
 };
 
 const getOneById = async (id) => {
-    const res = JobPost.findById(id);
+    const res = JobPost.findById(id)
+        .populate('hiringManager', 'name email designation profilePhoto socialMedia')
+        .populate('company', '-motto -description -coverPhoto -createdAt -updatedAt -__v');
     return res;
 };
 
@@ -39,6 +42,7 @@ const getAll = async (queries) => {
         postDate,
         sortBy,
         searchQuery,
+        hiringManagerId,
     } = queries;
     // set final query
     const filters = {
@@ -62,12 +66,13 @@ const getAll = async (queries) => {
     if (location) filters.location = location;
     if (postDate) filters.createdAt = { $gte: postDate };
     if (searchQuery) filters.title = searchQuery;
+    if (hiringManagerId) filters.hiringManagerId = hiringManagerId;
 
     const res = await JobPost.find(filters)
         .skip(skip)
         .limit(limit)
         .sort(`${sortBy} title`)
-        .select('title salary location tags');
+        .select('');
     const countDocument = await JobPost.count(filters);
     return { totalCount: countDocument, count: res.length, jobs: res };
 };
