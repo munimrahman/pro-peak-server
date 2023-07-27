@@ -1,3 +1,4 @@
+/* eslint-disable radix */
 const jobPostRepository = require('../repository');
 
 const createJobPostService = async (data) => {
@@ -17,15 +18,36 @@ const getOneJobPostService = async (id) => {
 
 // get all service
 const getAllJobPostService = async (query) => {
-    const filters = { ...query };
+    const {
+        page = 1,
+        limit = 5,
+        industry,
+        salary,
+        jobLevel,
+        workPlace,
+        jobType,
+        location,
+        tags,
+        searchQuery,
+        sort,
+        date,
+    } = query;
+
     const queries = {};
-    // exclude fields -> page, limit, sort
-    const excludeFields = ['page', 'limit', 'sort', 'searchQuery'];
-    excludeFields.forEach((field) => delete filters[field]);
 
-    console.log(filters);
+    // set pagination
+    if (page) {
+        const skip = (page - 1) * parseInt(limit);
+        queries.skip = skip;
+        queries.limit = parseInt(limit);
+    }
 
-    const data = await jobPostRepository.getAll(filters, queries);
+    // set industry query
+    if (industry) {
+        const industries = [];
+    }
+
+    const data = await jobPostRepository.getAll(queries);
     return data;
 };
 

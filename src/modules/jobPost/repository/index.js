@@ -24,14 +24,16 @@ const updateOne = async (data, id) => {
 };
 
 // get all query
-const getAll = async (filters, queries) => {
+const getAll = async (queries) => {
+    console.log(queries);
+    const { skip, limit } = queries;
     const oneMinuteAgo = new Date();
     oneMinuteAgo.setMinutes(oneMinuteAgo.getMinutes() - 10000);
     const titleQuery = 'react';
     const regex = new RegExp(titleQuery, 'i');
     const res = await JobPost.find({
         $or: [],
-        salary: { $gte: 100, $lte: 400 },
+        // salary: { $gte: 100, $lte: 400 },
         // jobLevel: 'Mid Level',
         // workPlace: 'Remote',
         // createdAt: { $gte: oneMinuteAgo },
@@ -40,11 +42,12 @@ const getAll = async (filters, queries) => {
         // tags: { $in: ['Node JS'] },
         // title: regex,
     })
-        .skip(2)
-        .limit(2)
+        .skip(skip)
+        .limit(limit)
         .sort('-salary -createdAt')
         .select('title salary jobLevel workPlace location tags');
-    return { count: res.length, jobs: res };
+    const countDocument = await JobPost.countDocuments({});
+    return { totalCount: countDocument, count: res.length, jobs: res };
 };
 
 const deleteOne = async (id) => {
