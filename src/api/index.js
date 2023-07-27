@@ -4,6 +4,7 @@ const userRoute = require('./user.routes');
 const companyRoute = require('./companies.routes');
 const applicationsRoute = require('./applications.routes');
 const blogsRoute = require('./blogs.routes');
+const quizRoute = require('./quiz.routes');
 
 const router = express.Router();
 
@@ -12,5 +13,6 @@ router.use('/jobs', jobRoute);
 router.use('/companies', companyRoute);
 router.use('/job-applications', applicationsRoute);
 router.use('/blogs', blogsRoute);
+router.use('/quizzes', quizRoute);
 
 module.exports = router;
