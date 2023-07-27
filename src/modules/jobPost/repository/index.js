@@ -1,3 +1,4 @@
+/* eslint-disable object-curly-newline */
 const JobPost = require('../../../models/JobPost');
 
 const createOne = async (data) => {
@@ -26,26 +27,38 @@ const updateOne = async (data, id) => {
 // get all query
 const getAll = async (queries) => {
     console.log(queries);
-    const { skip, limit } = queries;
-    const oneMinuteAgo = new Date();
-    oneMinuteAgo.setMinutes(oneMinuteAgo.getMinutes() - 10000);
+    const {
+        skip,
+        limit,
+        industry = [],
+        salary: { low = 0, high = Infinity } = {},
+        jobLevel = [],
+        workPlace = [],
+        jobType = [],
+        tags = [],
+        location,
+        postDate,
+        sortBy,
+    } = queries;
+
     const titleQuery = 'react';
     const regex = new RegExp(titleQuery, 'i');
+    console.log(low, high);
     const res = await JobPost.find({
-        $or: [],
-        // salary: { $gte: 100, $lte: 400 },
-        // jobLevel: 'Mid Level',
-        // workPlace: 'Remote',
-        // createdAt: { $gte: oneMinuteAgo },
-        // jobType: 'Full Time',
-        // location: 'Dhaka, Bangladesh',
-        // tags: { $in: ['Node JS'] },
+        // $or: [...industry],
+        // salary: { $gte: low, $lte: high },
+        // jobLevel: { $in: [...jobLevel] }, // TODO: not work if pass empty array
+        // workPlace: { $in: workPlace },
+        // jobType: { $in: jobType },
+        // tags: { $in: tags },
+        // location, // TODO: if empty string then not working
+        // createdAt: { $gte: postDate },
         // title: regex,
     })
         .skip(skip)
         .limit(limit)
-        .sort('-salary -createdAt')
-        .select('title salary jobLevel workPlace location tags');
+        .sort(`${sortBy} title`)
+        .select('title salary location');
     const countDocument = await JobPost.countDocuments({});
     return { totalCount: countDocument, count: res.length, jobs: res };
 };

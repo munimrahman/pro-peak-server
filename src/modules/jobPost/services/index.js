@@ -29,8 +29,8 @@ const getAllJobPostService = async (query) => {
         location,
         tags,
         searchQuery,
-        sort,
-        date,
+        sortBy,
+        postDate,
     } = query;
 
     const queries = {};
@@ -44,7 +44,74 @@ const getAllJobPostService = async (query) => {
 
     // set industry query
     if (industry) {
-        const industries = [];
+        // Web Development, App Development // get like this from req.query
+        // [{industry: 'Web Development'}, {industry: 'App Development'}] // need like this
+        const industriesArray = industry.split(',').map((ind) => ind.trim());
+        const industries = industriesArray.map((ind) => ({ industry: ind }));
+        queries.industry = industries;
+    }
+
+    // set salary query
+    if (salary) {
+        // 2500-3500 // get like this from req.query
+        // salary: {low: 0, high: 100} // need like this
+        const salaryArray = salary.split('-').map((s) => s.trim());
+        queries.salary = { low: salaryArray[0], high: salaryArray[1] };
+    }
+
+    // set job level query
+    if (jobLevel) {
+        // Entry Level, Mid Level // get like this from req.query
+        // ['Entry Level', 'Mid Level'] // need like this
+        const level = jobLevel.split(',').map((l) => l.trim());
+        queries.jobLevel = level;
+    }
+
+    // set work place query
+    if (workPlace) {
+        // Remote, On Site // get like this from req.query
+        // ['Remote', 'On Site'] // need like this
+        const place = workPlace.split(',').map((p) => p.trim());
+        queries.workPlace = place;
+    }
+
+    // set job type query
+    if (jobType) {
+        // Remote, On Site // get like this from req.query
+        // ['Remote', 'On Site'] // need like this
+        const type = jobType.split(',').map((t) => t.trim());
+        queries.jobType = type;
+    }
+
+    // set tags query
+    if (tags) {
+        // React, JavaScript // get like this from req.query
+        // ['React', 'JavaScript'] // need like this
+        const tag = tags.split(',').map((t) => t.trim());
+        queries.tags = tag;
+    }
+
+    // set location query
+    if (location) {
+        // Dhaka, Bangladesh // get like this from req.query
+        // Dhaka, Bangladesh // need like this
+        queries.location = location;
+    }
+
+    // set posted date query
+    if (postDate) {
+        // 7 // get like this from req.query
+        // 2023-07-27T10:08:07.424Z // need like this
+        const daysAgo = new Date();
+        daysAgo.setDate(daysAgo.getDate() - parseInt(postDate));
+        queries.postDate = daysAgo;
+    }
+
+    // set sorting query
+    if (sortBy) {
+        // createdAt // get like this from req.query
+        // createdAt // need like this
+        queries.sortBy = sortBy;
     }
 
     const data = await jobPostRepository.getAll(queries);
