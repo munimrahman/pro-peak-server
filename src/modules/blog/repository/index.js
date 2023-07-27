@@ -1,3 +1,4 @@
+/* eslint-disable object-curly-newline */
 const Blog = require('../../../models/Blog');
 
 const createOne = async (data) => {
@@ -38,9 +39,17 @@ const createCommentReply = async (reply, commentId, blogId) => {
     return res;
 };
 
-const getAll = async () => {
-    const res = await Blog.find({});
-    return { count: res.length, blogs: res };
+// get all queries
+const getAll = async (queries) => {
+    const { author, tags, searchQuery, skip, limit } = queries;
+    const filters = {};
+
+    if (author) filters.author = author;
+    if (tags) filters.tags = { $in: tags };
+    if (searchQuery) filters.title = searchQuery;
+    const res = await Blog.find(filters).skip(skip).limit(limit);
+    const countTotal = await Blog.count(filters);
+    return { total: countTotal, count: res.length, blogs: res };
 };
 
 const deleteOne = async (id) => {

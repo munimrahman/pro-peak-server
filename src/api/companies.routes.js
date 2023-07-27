@@ -11,7 +11,7 @@ const {
 const router = express.Router();
 
 /*
-/companies?industry=Finance&companySize=6-15&workPlace=On Site&page=1&limit=2
+/companies?industry=Finance&companySize=6-15&workPlace=On Site&page=1&limit=2&searchQuery=bank
 */
 
 router.route('/').post(createCompany).get(getAllCompany).delete(deleteManyCompany);

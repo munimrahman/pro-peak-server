@@ -25,12 +25,13 @@ const updateOne = async (data, id) => {
 };
 // get all companies query
 const getAll = async (queries) => {
-    const { industry, companySize, workPlace, skip, limit } = queries;
+    const { industry, companySize, workPlace, searchQuery, skip, limit } = queries;
     const filters = {};
 
     if (industry) filters.industry = industry;
     if (companySize) filters.companySize = companySize;
     if (workPlace) filters.workPlace = workPlace;
+    if (searchQuery) filters.name = searchQuery;
 
     const res = await Company.find(filters).skip(skip).limit(limit);
     const totalCount = await Company.countDocuments(filters);

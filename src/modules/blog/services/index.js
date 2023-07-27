@@ -1,3 +1,5 @@
+/* eslint-disable object-curly-newline */
+/* eslint-disable radix */
 const blogRepository = require('../repository');
 
 const createBlogService = async (data) => {
@@ -30,8 +32,31 @@ const getOneBlogService = async (id) => {
     return blog;
 };
 
-const getAllBlogService = async () => {
-    const data = await blogRepository.getAll();
+// get all blogs
+const getAllBlogService = async (query) => {
+    const { author, tags, searchQuery, page = 1, limit = 5 } = query;
+    const queries = { author };
+
+    // set pagination
+    if (page) {
+        const skip = (page - 1) * parseInt(limit);
+        queries.skip = skip;
+        queries.limit = parseInt(limit);
+    }
+    // set search query
+    if (searchQuery) {
+        const regex = new RegExp(searchQuery, 'i');
+        queries.searchQuery = regex;
+    }
+    // set tags query
+    if (tags) {
+        // React, JavaScript // get like this from req.query
+        // ['React', 'JavaScript'] // need like this
+        const tag = tags.split(',').map((t) => t.trim());
+        queries.tags = tag;
+    }
+
+    const data = await blogRepository.getAll(queries);
     return data;
 };
 

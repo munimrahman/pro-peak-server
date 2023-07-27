@@ -47,9 +47,9 @@ const getOneBlog = catchError(async (req, res, next) => {
         blog,
     });
 });
-
+// get all blogs
 const getAllBlog = catchError(async (req, res, next) => {
-    const data = await blogServices.getAllBlogService();
+    const data = await blogServices.getAllBlogService(req.query);
     res.status(HTTP_OK.code).json({
         success: true,
         message: HTTP_OK.message,
