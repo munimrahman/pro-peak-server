@@ -1,3 +1,4 @@
+/* eslint-disable object-curly-newline */
 const User = require('../../../models/User');
 
 const createOne = async (data) => {
@@ -23,9 +24,21 @@ const updateOne = async (data, id) => {
     return updatedRes;
 };
 
-const getAll = async () => {
-    const res = await User.find({});
-    return { count: res.length, users: res };
+// get all users
+const getAll = async (queries) => {
+    const { role, skills, hourlyRate, certification, searchQuery, skip, limit } = queries;
+    const filters = {};
+
+    if (role) filters.role = role;
+    if (skills) filters.skills = skills;
+    if (hourlyRate) filters.hourlyRate = hourlyRate;
+    if (certification) filters.certification = certification;
+    if (searchQuery) filters.name = searchQuery;
+
+    const res = await User.find(filters).skip(skip).limit(limit);
+    const totalCount = await User.countDocuments(filters);
+
+    return { totalCount, count: res.length, users: res };
 };
 
 const deleteOne = async (id) => {

@@ -65,10 +65,10 @@ const jobPostSchema = new Schema(
             ref: 'User',
             required: true,
         },
-        // optional
         company: {
             type: Schema.Types.ObjectId,
             ref: 'Company',
+            required: true,
         },
     },
     { timestamps: true }

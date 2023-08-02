@@ -35,7 +35,7 @@ const getAll = async (queries) => {
 
     const res = await Company.find(filters).skip(skip).limit(limit);
     const totalCount = await Company.countDocuments(filters);
-    return { total: totalCount, count: res.length, companies: res };
+    return { totalCount, count: res.length, companies: res };
 };
 
 const deleteOne = async (id) => {

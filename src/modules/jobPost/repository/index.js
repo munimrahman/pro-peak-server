@@ -9,7 +9,7 @@ const createOne = async (data) => {
 
 const getOneById = async (id) => {
     const res = JobPost.findById(id)
-        .populate('hiringManager', 'name email designation profilePhoto socialMedia')
+        .populate('hiringManagerId', 'name email designation profilePhoto socialMedia')
         .populate('company', '-motto -description -coverPhoto -createdAt -updatedAt -__v');
     return res;
 };
@@ -72,7 +72,8 @@ const getAll = async (queries) => {
         .skip(skip)
         .limit(limit)
         .sort(`${sortBy} title`)
-        .select('');
+        .select('')
+        .populate('company', 'name logo location');
     const countDocument = await JobPost.count(filters);
     return { totalCount: countDocument, count: res.length, jobs: res };
 };

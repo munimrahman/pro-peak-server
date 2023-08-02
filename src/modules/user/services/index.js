@@ -1,3 +1,5 @@
+/* eslint-disable radix */
+/* eslint-disable object-curly-newline */
 const generateToken = require('../../../utils/helpers/generateToken');
 const userRepository = require('../repository');
 
@@ -40,8 +42,25 @@ const getOneUserService = async (id) => {
     return user;
 };
 
-const getAllUserService = async () => {
-    const data = await userRepository.getAll();
+// get all users
+const getAllUserService = async (query) => {
+    const { role, skills, hourlyRate, certification, searchQuery, page = 1, limit = 5 } = query;
+    const queries = { role, skills, hourlyRate, certification };
+
+    // set pagination
+    if (page) {
+        const skip = (page - 1) * parseInt(limit);
+        queries.skip = skip;
+        queries.limit = parseInt(limit);
+    }
+
+    // set search query
+    if (searchQuery) {
+        const regex = new RegExp(searchQuery, 'i');
+        queries.searchQuery = regex;
+    }
+
+    const data = await userRepository.getAll(queries);
     return data;
 };
 

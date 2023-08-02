@@ -29,6 +29,7 @@ const getOneCompany = catchError(async (req, res, next) => {
         company,
     });
 });
+
 // get all company
 const getAllCompany = catchError(async (req, res, next) => {
     const data = await companyServices.getAllCompanyService(req.query);

@@ -47,8 +47,9 @@ const getOneUser = catchError(async (req, res, next) => {
     });
 });
 
+// get all users
 const getAllUser = catchError(async (req, res, next) => {
-    const data = await userServices.getAllUserService();
+    const data = await userServices.getAllUserService(req.query);
     res.status(HTTP_OK.code).json({
         success: true,
         message: HTTP_OK.message,

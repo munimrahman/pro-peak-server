@@ -69,6 +69,7 @@ const companySchema = new Schema(
         hiringManager: {
             type: Schema.Types.ObjectId,
             ref: 'User',
+            required: true,
         },
     },
     { timestamps: true }

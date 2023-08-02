@@ -47,9 +47,13 @@ const getAll = async (queries) => {
     if (author) filters.author = author;
     if (tags) filters.tags = { $in: tags };
     if (searchQuery) filters.title = searchQuery;
-    const res = await Blog.find(filters).skip(skip).limit(limit);
-    const countTotal = await Blog.count(filters);
-    return { total: countTotal, count: res.length, blogs: res };
+
+    const res = await Blog.find(filters)
+        .skip(skip)
+        .limit(limit)
+        .populate('author', 'name profilePhoto');
+    const totalCount = await Blog.count(filters);
+    return { totalCount, count: res.length, blogs: res };
 };
 
 const deleteOne = async (id) => {
