@@ -3,13 +3,13 @@ const mongoose = require('mongoose');
 const { Schema } = mongoose;
 
 const replySchema = Schema({
-    author: { type: String, required: true },
+    author: { type: Schema.Types.ObjectId, ref: 'User', required: true },
     content: { type: String, required: true },
     createdAt: { type: Date, default: Date.now },
 });
 
 const commentSchema = Schema({
-    author: { type: String, required: true },
+    author: { type: Schema.Types.ObjectId, ref: 'User', required: true },
     content: { type: String, required: true },
     createdAt: { type: Date, default: Date.now },
     replies: [replySchema],

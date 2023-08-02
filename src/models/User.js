@@ -55,12 +55,15 @@ const userSchema = new Schema(
         viewedBy: {
             type: [
                 {
-                    type: mongoose.Schema.Types.ObjectId,
+                    type: Schema.Types.ObjectId,
                     ref: 'User',
                 },
             ],
         },
-
+        company: {
+            type: Schema.Types.ObjectId,
+            ref: 'Company',
+        },
         isAccountVerified: {
             type: Boolean,
             default: false,

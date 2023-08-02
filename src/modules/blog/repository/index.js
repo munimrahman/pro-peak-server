@@ -7,7 +7,15 @@ const createOne = async (data) => {
 };
 
 const getOneById = async (id) => {
-    const res = Blog.findById(id);
+    const res = Blog.findById(id)
+        .populate('author', 'name designation profilePhoto')
+        .populate({
+            path: 'comments',
+            populate: [
+                { path: 'author', select: 'name' },
+                { path: 'replies.author', select: 'name' },
+            ],
+        });
     return res;
 };
 

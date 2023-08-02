@@ -7,7 +7,10 @@ const createOne = async (data) => {
 };
 
 const getOneById = async (id) => {
-    const res = User.findById(id);
+    const res = User.findById(id).populate(
+        'company',
+        '_id name location logo industry companySize foundedIn phone email website facebook linkedin'
+    );
     return res;
 };
 
