@@ -43,6 +43,7 @@ const getAll = async (queries) => {
         sortBy,
         searchQuery,
         hiringManagerId,
+        companyId,
     } = queries;
     // set final query
     const filters = {
@@ -67,6 +68,7 @@ const getAll = async (queries) => {
     if (postDate) filters.createdAt = { $gte: postDate };
     if (searchQuery) filters.title = searchQuery;
     if (hiringManagerId) filters.hiringManagerId = hiringManagerId;
+    if (companyId) filters.company = companyId;
 
     const res = await JobPost.find(filters)
         .skip(skip)

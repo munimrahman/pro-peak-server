@@ -51,6 +51,7 @@ const getAll = async (queries) => {
     const res = await Blog.find(filters)
         .skip(skip)
         .limit(limit)
+        .sort('-createdAt')
         .populate('author', 'name profilePhoto');
     const totalCount = await Blog.count(filters);
     return { totalCount, count: res.length, blogs: res };

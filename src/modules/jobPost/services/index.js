@@ -32,6 +32,7 @@ const getAllJobPostService = async (query) => {
         sortBy,
         postDate,
         hiringManagerId,
+        companyId,
     } = query;
 
     const queries = {};
@@ -124,6 +125,11 @@ const getAllJobPostService = async (query) => {
     // set hiring manager query
     if (hiringManagerId) {
         queries.hiringManagerId = hiringManagerId;
+    }
+
+    // set company query
+    if (companyId) {
+        queries.companyId = companyId;
     }
 
     const data = await jobPostRepository.getAll(queries);
