@@ -46,12 +46,36 @@ const userSchema = new Schema(
             twitter: String,
             github: String,
         },
+        portfolio: {
+            type: String,
+        },
+        address: {
+            type: String,
+        },
         role: {
             type: String,
             enum: ['candidate', 'recruiter', 'admin'],
             required: [true, 'Role is Required'],
         },
-
+        skills: [
+            {
+                type: String,
+            },
+        ],
+        certifications: [{ type: String }],
+        hourlyRate: { type: Number },
+        workExperience: [
+            {
+                companyName: String,
+                position: String,
+                jobType: String,
+                jobTime: {
+                    start: Date,
+                    end: Date,
+                },
+                description: String,
+            },
+        ],
         viewedBy: {
             type: [
                 {
@@ -60,13 +84,14 @@ const userSchema = new Schema(
                 },
             ],
         },
-        company: {
-            type: Schema.Types.ObjectId,
-            ref: 'Company',
-        },
         isAccountVerified: {
             type: Boolean,
             default: false,
+        },
+        // for recruiter (& admin)
+        company: {
+            type: Schema.Types.ObjectId,
+            ref: 'Company',
         },
 
         confirmationToken: String,

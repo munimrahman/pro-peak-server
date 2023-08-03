@@ -66,6 +66,16 @@ const companySchema = new Schema(
             type: String,
             required: true,
         },
+        totalPostedJob: {
+            type: Number,
+        },
+        rating: [
+            {
+                name: String,
+                rate: Number,
+                description: String,
+            },
+        ],
         hiringManager: {
             type: Schema.Types.ObjectId,
             ref: 'User',

@@ -28,7 +28,7 @@ const getAll = async (queries) => {
 
     const res = await Quiz.find(filters).skip(skip).limit(limit);
     const totalCount = await Quiz.countDocuments(filters);
-    return { total: totalCount, count: res.length, quizzes: res };
+    return { totalCount, count: res.length, quizzes: res };
 };
 
 const deleteOne = async (id) => {
