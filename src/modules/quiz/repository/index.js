@@ -21,13 +21,10 @@ const updateOne = async (data, id) => {
 
 // TODO: get all companies query
 const getAll = async (queries) => {
-    const { industry, companySize, workPlace, searchQuery, skip, limit } = queries || {};
+    const { searchQuery, skip, limit } = queries || {};
     const filters = {};
 
-    if (industry) filters.industry = industry;
-    if (companySize) filters.companySize = companySize;
-    if (workPlace) filters.workPlace = workPlace;
-    if (searchQuery) filters.name = searchQuery;
+    if (searchQuery) filters.title = searchQuery;
 
     const res = await Quiz.find(filters).skip(skip).limit(limit);
     const totalCount = await Quiz.countDocuments(filters);

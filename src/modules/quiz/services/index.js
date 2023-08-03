@@ -19,8 +19,8 @@ const getOneQuizService = async (id) => {
 
 // TODO: get all companies
 const getAllQuizService = async (query) => {
-    const { industry, companySize, workPlace, searchQuery, page = 1, limit = 5 } = query;
-    const queries = { industry, companySize, workPlace };
+    const { searchQuery, page = 1, limit = 5 } = query;
+    const queries = {};
     // set pagination
     if (page) {
         const skip = (page - 1) * parseInt(limit);
@@ -33,6 +33,7 @@ const getAllQuizService = async (query) => {
         const regex = new RegExp(searchQuery, 'i');
         queries.searchQuery = regex;
     }
+
     const data = await quizRepository.getAll(queries);
     return data;
 };

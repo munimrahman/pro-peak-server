@@ -12,8 +12,8 @@ const getOneById = async (id) => {
         .populate({
             path: 'comments',
             populate: [
-                { path: 'author', select: 'name' },
-                { path: 'replies.author', select: 'name' },
+                { path: 'author', select: 'name profilePhoto' },
+                { path: 'replies.author', select: 'name profilePhoto' },
             ],
         });
     return res;
