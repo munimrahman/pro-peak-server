@@ -2,6 +2,7 @@
 const catchError = require('../../../utils/error/catchError');
 const userServices = require('../services');
 const { HTTP_CREATED, HTTP_OK } = require('../../../utils/constants/constants');
+const People = require('../../../models/People');
 
 const createUser = catchError(async (req, res, next) => {
     const data = await userServices.registerUserService(req.body);
@@ -9,6 +10,23 @@ const createUser = catchError(async (req, res, next) => {
         success: true,
         message: HTTP_CREATED.message,
         data,
+    });
+});
+
+// TODO: delete test file upload
+const createPeople = catchError(async (req, res, next) => {
+    const { host } = req;
+    console.log(req);
+    const filePath = `${req.protocol}://${host}:5000/static/images/${req.files[0].filename}`;
+
+    const user = { email: req.body.email, profilePhoto: filePath };
+
+    const people = await People.create(user);
+
+    res.status(HTTP_CREATED.code).json({
+        success: true,
+        message: HTTP_CREATED.message,
+        data: people,
     });
 });
 
@@ -77,6 +95,7 @@ const deleteManyUser = catchError(async (req, res, next) => {
 
 module.exports = {
     createUser,
+    createPeople,
     logIn,
     updateUser,
     getOneUser,

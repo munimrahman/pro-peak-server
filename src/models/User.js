@@ -46,10 +46,16 @@ const userSchema = new Schema(
             twitter: String,
             github: String,
         },
-        portfolio: {
+        website: {
+            type: String,
+        },
+        resume: {
             type: String,
         },
         address: {
+            type: String,
+        },
+        experience: {
             type: String,
         },
         role: {
@@ -76,14 +82,13 @@ const userSchema = new Schema(
                 description: String,
             },
         ],
-        viewedBy: {
-            type: [
-                {
-                    type: Schema.Types.ObjectId,
-                    ref: 'User',
-                },
-            ],
-        },
+        viewedBy: [
+            {
+                type: Schema.Types.ObjectId,
+                ref: 'User',
+            },
+        ],
+
         isAccountVerified: {
             type: Boolean,
             default: false,
