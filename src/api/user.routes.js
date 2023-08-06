@@ -1,4 +1,5 @@
 const express = require('express');
+const multer = require('multer');
 const {
     createUser,
     createPeople,
@@ -13,15 +14,20 @@ const { userValidators, userValidationHandler } = require('../middlewares/userVa
 const { loginValidators, loginValidationHandler } = require('../middlewares/loginValidators');
 const imageUpload = require('../middlewares/imageUploader');
 
-const router = express.Router();
+const storage = multer.diskStorage({});
+const upload = multer({ storage });
 
-router.post('/file-upload', imageUpload.any('profilePhoto'), createPeople);
+const router = express.Router();
 
 router.route('/register').post(userValidators, userValidationHandler, createUser);
 router.route('/log-in').post(loginValidators, loginValidationHandler, logIn);
 // router.route('/current-user');
 
 router.route('/users').get(getAllUser).delete(deleteManyUser);
-router.route('/users/:id').get(getOneUser).put(updateUser).delete(deleteOneUser);
+router
+    .route('/users/:id')
+    .get(getOneUser)
+    .put(upload.single('profilePhoto'), updateUser)
+    .delete(deleteOneUser);
 
 module.exports = router;

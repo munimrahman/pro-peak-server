@@ -2,6 +2,7 @@
 /* eslint-disable object-curly-newline */
 const generateToken = require('../../../utils/helpers/generateToken');
 const userRepository = require('../repository');
+const cloudinary = require('../../../config/cloudinaryConfig');
 
 const registerUserService = async (data) => {
     const user = await userRepository.createOne(data);
@@ -32,7 +33,17 @@ const loginUserService = async (data) => {
     return { user, token };
 };
 
-const updateUserService = async (data, id) => {
+const updateUserService = async (body, file, id) => {
+    const data = { ...body };
+    // store image in cloudinary
+
+    if (file?.path) {
+        const result = await cloudinary.uploader.upload(file.path);
+        const imageUrl = result.secure_url;
+        data.profilePhoto = imageUrl;
+    }
+
+    console.log(data);
     const updatedUser = await userRepository.updateOne(data, id);
     return updatedUser;
 };
