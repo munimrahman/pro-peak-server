@@ -12,59 +12,45 @@ const companySchema = new Schema(
         },
         motto: {
             type: String,
-            required: true,
         },
         location: {
             type: String,
-            required: true,
         },
         description: {
             type: String,
-            required: true,
         },
         industry: {
             type: String,
-            required: true,
         },
         companySize: {
             type: String,
-            required: true,
         },
         foundedIn: {
             type: String,
-            required: true,
         },
         workPlace: {
             type: String,
-            required: true,
         },
         website: {
             type: String,
-            required: true,
         },
         phone: {
             type: String,
-            required: true,
         },
         email: {
             type: String,
-            required: true,
         },
         facebook: {
             type: String,
-            required: true,
         },
         linkedin: {
             type: String,
-            required: true,
         },
         logo: {
             type: String,
-            required: true,
         },
         coverPhoto: {
             type: String,
-            required: true,
         },
         totalPostedJob: {
             type: Number,

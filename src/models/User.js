@@ -140,3 +140,40 @@ userSchema.methods.generateConfirmationToken = function () {
 
 const User = mongoose.model('User', userSchema);
 module.exports = User;
+
+// "mobile": "",
+// "profilePhoto": "",
+// "coverPhoto": "",
+// "bio": "",
+// "designation": "",
+// "language": [""],
+// "socialMedia": {
+//     "facebook": "",
+//     "linkedin": "",
+//     "twitter": "",
+//     "github": ""
+// },
+// "website": "",
+// "resume": "",
+// "address": "",
+// "role": "",
+// "skills": [""],
+// "certifications": [""],
+// "hourlyRate": 5,
+// "workExperience": [
+//     {
+//         "companyName": "",
+//         "position": "",
+//         "jobType": "",
+//         "jobTime": {
+//             "start": "",
+//             "end": ""
+//         },
+//         "description": ""
+//     }
+// ],
+// "viewedBy": [""],
+
+// "isAccountVerified": "",
+// for recruiter (& admin)
+// "company": ""

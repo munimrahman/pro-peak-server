@@ -5,7 +5,9 @@ const userRepository = require('../repository');
 const cloudinary = require('../../../config/cloudinaryConfig');
 
 const registerUserService = async (data) => {
-    const user = await userRepository.createOne(data);
+    const { companyName, ...userData } = data;
+
+    const user = await userRepository.createOne({ companyName, userData });
 
     const confirmationToken = user.generateConfirmationToken();
     await user.save({ validateBeforeSave: true });
@@ -34,15 +36,52 @@ const loginUserService = async (data) => {
 };
 
 const updateUserService = async (body, file, id) => {
-    const data = { ...body };
-    // store image in cloudinary
+    const {
+        name,
+        mobile,
+        coverPhoto,
+        bio,
+        designation,
+        experience,
+        language,
+        facebook,
+        linkedin,
+        twitter,
+        github,
+        website,
+        resume,
+        address,
+        skills,
+        hourlyRate,
+    } = body;
 
+    const data = {
+        name,
+        mobile,
+        coverPhoto,
+        bio,
+        designation,
+        experience,
+        website,
+        resume,
+        address,
+        hourlyRate,
+        socialMedia: {},
+    };
+
+    if (facebook) data.socialMedia.facebook = facebook;
+    if (linkedin) data.socialMedia.linkedin = linkedin;
+    if (twitter) data.socialMedia.twitter = twitter;
+    if (github) data.socialMedia.github = github;
+    if (language) data.language = [...body.language.split(',').map((l) => l.trim())];
+    if (skills) data.skills = [...body.skills.split(',').map((l) => l.trim())];
+
+    // store image in cloudinary
     if (file?.path) {
         const result = await cloudinary.uploader.upload(file.path);
         const imageUrl = result.secure_url;
         data.profilePhoto = imageUrl;
     }
-
     console.log(data);
     const updatedUser = await userRepository.updateOne(data, id);
     return updatedUser;

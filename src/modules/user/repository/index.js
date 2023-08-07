@@ -1,16 +1,26 @@
+/* eslint-disable no-underscore-dangle */
 /* eslint-disable object-curly-newline */
+const Company = require('../../../models/Company');
 const User = require('../../../models/User');
 
-const createOne = async (data) => {
-    const res = await User.create(data);
-    return res;
+const createOne = async ({ userData, companyName }) => {
+    const user = await User.create(userData);
+    if (companyName) {
+        const userId = user._id;
+        const company = await Company.create({ name: companyName, hiringManager: userId });
+        const companyId = company._id;
+        user.company = companyId;
+    }
+    return user;
 };
 
 const getOneById = async (id) => {
-    const res = User.findById(id).populate(
-        'company',
-        '_id name location logo industry companySize foundedIn phone email website facebook linkedin'
-    );
+    const res = User.findById(id)
+        .populate(
+            'company',
+            '_id name location logo industry companySize foundedIn phone email website facebook linkedin'
+        )
+        .select('-password');
     return res;
 };
 
