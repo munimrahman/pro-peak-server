@@ -1,3 +1,4 @@
+/* eslint-disable operator-linebreak */
 /* eslint-disable radix */
 /* eslint-disable object-curly-newline */
 const generateToken = require('../../../utils/helpers/generateToken');
@@ -53,6 +54,7 @@ const updateUserService = async (body, file, id) => {
         address,
         skills,
         hourlyRate,
+        workExperience,
     } = body;
 
     const data = {
@@ -67,6 +69,7 @@ const updateUserService = async (body, file, id) => {
         address,
         hourlyRate,
         socialMedia: {},
+        workExperience: {},
     };
 
     if (facebook) data.socialMedia.facebook = facebook;
@@ -75,6 +78,26 @@ const updateUserService = async (body, file, id) => {
     if (github) data.socialMedia.github = github;
     if (language) data.language = [...body.language.split(',').map((l) => l.trim())];
     if (skills) data.skills = [...body.skills.split(',').map((l) => l.trim())];
+    if (workExperience) {
+        const {
+            designation: role,
+            companyName,
+            companyLocation,
+            start,
+            end,
+            description,
+            jobType,
+        } = JSON.parse(workExperience);
+        const workExp = {
+            designation: role,
+            companyName,
+            companyLocation,
+            jobType,
+            jobTime: { start, end },
+            description,
+        };
+        data.workExperience = workExp;
+    }
 
     // store image in cloudinary
     if (file?.path) {
@@ -82,7 +105,11 @@ const updateUserService = async (body, file, id) => {
         const imageUrl = result.secure_url;
         data.profilePhoto = imageUrl;
     }
-    console.log(data);
+
+    if (workExperience) {
+        const updatedUser = await userRepository.addWorkExperience(data.workExperience, id);
+        return updatedUser;
+    }
     const updatedUser = await userRepository.updateOne(data, id);
     return updatedUser;
 };

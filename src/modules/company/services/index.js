@@ -18,8 +18,16 @@ const getOneCompanyService = async (id) => {
 };
 // get all companies
 const getAllCompanyService = async (query) => {
-    const { industry, companySize, workPlace, searchQuery, page = 1, limit = 5 } = query;
-    const queries = { industry, companySize, workPlace };
+    const {
+        industry,
+        companySize,
+        workPlace,
+        searchQuery,
+        hiringManager,
+        page = 1,
+        limit = 5,
+    } = query;
+    const queries = { industry, companySize, workPlace, hiringManager };
     // set pagination
     if (page) {
         const skip = (page - 1) * parseInt(limit);

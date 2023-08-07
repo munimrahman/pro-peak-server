@@ -73,8 +73,9 @@ const userSchema = new Schema(
         workExperience: [
             {
                 companyName: String,
-                position: String,
+                designation: String,
                 jobType: String,
+                companyLocation: String,
                 jobTime: {
                     start: Date,
                     end: Date,

@@ -37,6 +37,13 @@ const updateOne = async (data, id) => {
     return updatedRes;
 };
 
+const addWorkExperience = async (workExperience, id) => {
+    const user = await User.findById(id);
+    user.workExperience.push(workExperience);
+    user.save();
+    return user;
+};
+
 // get all users
 const getAll = async (queries) => {
     const { role, skills, hourlyRate, certification, searchQuery, skip, limit } = queries;
@@ -68,6 +75,7 @@ const deleteMany = async (ids) => {
 module.exports = {
     createOne,
     updateOne,
+    addWorkExperience,
     getOneById,
     getOneByEmail,
     getAll,
