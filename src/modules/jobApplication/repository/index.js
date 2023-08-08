@@ -30,7 +30,10 @@ const getAll = async (queries) => {
     if (candidateId) filters['candidate.id'] = candidateId;
     if (jobPostId) filters.jobPostId = jobPostId;
 
-    const res = await JobApplication.find(filters).skip(skip).limit(limit);
+    const res = await JobApplication.find(filters)
+        .skip(skip)
+        .limit(limit)
+        .populate('jobPostId', 'title salary location');
     const totalCount = await JobApplication.countDocuments(filters);
 
     return { total: totalCount, count: res.length, applications: res };

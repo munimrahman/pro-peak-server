@@ -21,7 +21,7 @@ const jobPostSchema = new Schema(
             required: true,
         },
         salary: {
-            type: Number,
+            type: String,
             required: true,
         },
         jobLevel: {

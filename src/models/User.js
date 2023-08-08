@@ -39,7 +39,6 @@ const userSchema = new Schema(
         designation: {
             type: String,
         },
-        language: [{ type: String }],
         socialMedia: {
             facebook: String,
             linkedin: String,
@@ -66,6 +65,20 @@ const userSchema = new Schema(
         skills: [
             {
                 type: String,
+            },
+        ],
+        skillTests: [
+            {
+                testId: String,
+                score: String,
+                correct: String,
+                wrong: String,
+                testName: String,
+                result: String,
+                date: {
+                    type: Date,
+                    default: Date.now(),
+                },
             },
         ],
         certifications: [{ type: String }],
@@ -141,40 +154,3 @@ userSchema.methods.generateConfirmationToken = function () {
 
 const User = mongoose.model('User', userSchema);
 module.exports = User;
-
-// "mobile": "",
-// "profilePhoto": "",
-// "coverPhoto": "",
-// "bio": "",
-// "designation": "",
-// "language": [""],
-// "socialMedia": {
-//     "facebook": "",
-//     "linkedin": "",
-//     "twitter": "",
-//     "github": ""
-// },
-// "website": "",
-// "resume": "",
-// "address": "",
-// "role": "",
-// "skills": [""],
-// "certifications": [""],
-// "hourlyRate": 5,
-// "workExperience": [
-//     {
-//         "companyName": "",
-//         "position": "",
-//         "jobType": "",
-//         "jobTime": {
-//             "start": "",
-//             "end": ""
-//         },
-//         "description": ""
-//     }
-// ],
-// "viewedBy": [""],
-
-// "isAccountVerified": "",
-// for recruiter (& admin)
-// "company": ""

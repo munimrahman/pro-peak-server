@@ -55,6 +55,8 @@ const updateUserService = async (body, file, id) => {
         skills,
         hourlyRate,
         workExperience,
+        skillTest,
+        certificate,
     } = body;
 
     const data = {
@@ -70,6 +72,7 @@ const updateUserService = async (body, file, id) => {
         hourlyRate,
         socialMedia: {},
         workExperience: {},
+        skillTest: {},
     };
 
     if (facebook) data.socialMedia.facebook = facebook;
@@ -98,6 +101,10 @@ const updateUserService = async (body, file, id) => {
         };
         data.workExperience = workExp;
     }
+    if (skillTest) {
+        const testObj = JSON.parse(skillTest);
+        data.skillTest = testObj;
+    }
 
     // store image in cloudinary
     if (file?.path) {
@@ -110,6 +117,17 @@ const updateUserService = async (body, file, id) => {
         const updatedUser = await userRepository.addWorkExperience(data.workExperience, id);
         return updatedUser;
     }
+
+    if (skillTest) {
+        const updatedUser = await userRepository.addSkillTest(data.skillTest, id);
+        return updatedUser;
+    }
+
+    if (certificate) {
+        const updatedUser = await userRepository.addCertificate(certificate, id);
+        return updatedUser;
+    }
+
     const updatedUser = await userRepository.updateOne(data, id);
     return updatedUser;
 };

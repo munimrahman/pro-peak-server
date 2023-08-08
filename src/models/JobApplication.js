@@ -5,14 +5,8 @@ const { Schema } = mongoose;
 const jobApplicationSchema = new Schema(
     {
         candidate: {
-            name: {
-                type: String,
-                required: true,
-            },
-            id: {
-                type: Schema.Types.ObjectId,
-                ref: 'User',
-            },
+            type: Schema.Types.ObjectId,
+            ref: 'User',
         },
         coverLetter: {
             type: String,
@@ -22,11 +16,7 @@ const jobApplicationSchema = new Schema(
             type: String,
             required: true,
         },
-        experience: {
-            type: String,
-            required: true,
-        },
-        resume: {
+        joinDate: {
             type: String,
             required: true,
         },

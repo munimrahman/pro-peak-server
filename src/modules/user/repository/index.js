@@ -44,6 +44,20 @@ const addWorkExperience = async (workExperience, id) => {
     return user;
 };
 
+const addSkillTest = async (skillTest, id) => {
+    const user = await User.findById(id);
+    user.skillTests.push(skillTest);
+    user.save();
+    return user;
+};
+
+const addCertificate = async (certificate, id) => {
+    const user = await User.findById(id);
+    user.certifications.push(certificate);
+    user.save();
+    return user;
+};
+
 // get all users
 const getAll = async (queries) => {
     const { role, skills, hourlyRate, certification, searchQuery, skip, limit } = queries;
@@ -76,6 +90,8 @@ module.exports = {
     createOne,
     updateOne,
     addWorkExperience,
+    addSkillTest,
+    addCertificate,
     getOneById,
     getOneByEmail,
     getAll,
