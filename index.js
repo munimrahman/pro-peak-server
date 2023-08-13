@@ -6,7 +6,7 @@ const config = require('./config');
 
 dotenv.config();
 
-const { PORT = 5052 } = config;
+const { PORT = 5055 } = config;
 
 createDBConnection();
 
