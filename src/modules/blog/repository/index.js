@@ -35,7 +35,18 @@ const updateOne = async (data, id) => {
 const createComment = async (data, blogId) => {
     const blog = await Blog.findById(blogId);
     blog.comments.push(data);
-    const res = await blog.save();
+    await blog.save();
+
+    const res = await Blog.findById(blogId)
+        .populate('author', 'name designation profilePhoto')
+        .populate({
+            path: 'comments',
+            populate: [
+                { path: 'author', select: 'name profilePhoto' },
+                { path: 'replies.author', select: 'name profilePhoto' },
+            ],
+        });
+
     return res;
 };
 

@@ -14,10 +14,10 @@ const registerUserService = async (data) => {
     await user.save({ validateBeforeSave: true });
     // TODO: send confirmation mail
 
-    const token = generateToken(user);
+    const accessToken = generateToken(user);
     // TODO: setup accessToken & refresh token in cookies
 
-    return { user, token };
+    return { user, accessToken };
 };
 
 const loginUserService = async (data) => {
@@ -31,9 +31,9 @@ const loginUserService = async (data) => {
 
     if (!isPasswordMatch) return undefined;
 
-    const token = generateToken(user);
+    const accessToken = generateToken(user);
     // TODO: setup accessToken & refresh token in cookies
-    return { user, token };
+    return { user, accessToken };
 };
 
 const updateUserService = async (body, file, id) => {

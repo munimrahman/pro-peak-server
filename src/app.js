@@ -23,10 +23,6 @@ app.use(
             tokens.url(req, res),
             tokens.status(req, res),
             tokens.date('clf')
-            // tokens.res(req, res, 'content-length'),
-            // '-',
-            // tokens['response-time'](req, res),
-            // 'ms',
         ].join(' '))
 );
 

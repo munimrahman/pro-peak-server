@@ -3,14 +3,13 @@ const JobPost = require('../../../models/JobPost');
 
 const createOne = async (data) => {
     const res = await JobPost.create(data);
-    console.log(res);
     return res;
 };
 
 const getOneById = async (id) => {
     const res = JobPost.findById(id)
         .populate('hiringManagerId', 'name email designation profilePhoto socialMedia')
-        .populate('company', '-motto -description -coverPhoto -createdAt -updatedAt -__v');
+        .populate('company', '-motto -description -createdAt -updatedAt -__v');
     return res;
 };
 

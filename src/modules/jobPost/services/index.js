@@ -90,6 +90,7 @@ const getAllJobPostService = async (query) => {
         // React, JavaScript // get like this from req.query
         // ['React', 'JavaScript'] // need like this
         const tag = tags.split(',').map((t) => t.trim());
+        console.log(tag);
         queries.tags = tag;
     }
 
